@@ -27,8 +27,6 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
-\Dusterio\LumenPassport\LumenPassport::routes($app);
-
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
 ]);
@@ -36,7 +34,7 @@ $app->routeMiddleware([
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
-
+$app->register(App\Providers\AppServiceProvider::class);
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

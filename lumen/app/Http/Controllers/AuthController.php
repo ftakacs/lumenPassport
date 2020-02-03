@@ -95,7 +95,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|fullName',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|max:30|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
         ]);
@@ -109,8 +109,10 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        $fullName = trim($data['name']);
+        $fullName = preg_replace('/\s+/', ' ', $fullName);
         return User::create([
-            'name' => $data['name'],
+            'name' => $fullName,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
