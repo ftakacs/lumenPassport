@@ -96,6 +96,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255|fullName',
+            'cpf' => 'required|cpf',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|max:30|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
         ]);
@@ -111,8 +112,11 @@ class AuthController extends Controller
     {
         $fullName = trim($data['name']);
         $fullName = preg_replace('/\s+/', ' ', $fullName);
+
+        $cpf = preg_replace('/[^0-9]/is', '', $data['cpf']);
         return User::create([
             'name' => $fullName,
+            'cpf' => $cpf,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

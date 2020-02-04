@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Validator;
 use Dusterio\LumenPassport\LumenPassport;
+use App\Rules\FullName;
+use App\Rules\Cpf;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,19 +17,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         LumenPassport::routes($this->app);
-        Validator::extend('fullName', function($attribute, $value, $parameters) {
-            $fullName = trim($value);
-            $fullName = preg_replace('/\s+/', ' ', $fullName);
-            $names = explode(' ',$fullName);
-            if(count($names) < 2){
-                return false;
-            }
-            foreach ($names as $name) {
-                if(strlen($name) < 2){
-                    return false;
-                }
-            }
-            return true;
-        });
+        FullName::register();
+        Cpf::register();
     }
 }
