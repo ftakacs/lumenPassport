@@ -36,6 +36,10 @@ $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 
+$app->middleware([
+    App\Http\Middleware\Cors::class
+]);
+
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
