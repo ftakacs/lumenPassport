@@ -26,6 +26,6 @@ class FullName implements RuleInterface
                 }
             }
             return true;
-        });
+        },'You must enter the Full Name');
     }
 }
