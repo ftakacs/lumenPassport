@@ -36,6 +36,6 @@ class Cpf implements RuleInterface
                 }
             }
             return true;
-        });
+        },'Invalid CPF');
     }
 }
